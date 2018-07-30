@@ -2,3 +2,4 @@
 *.txt
 *.csv
 .ipynb_checkpoints/*
+exploration_code/*
