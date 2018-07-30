@@ -17,6 +17,11 @@ with open("data.txt", "r") as f:
 
 d.pop(0)
 d.pop(0)
+separator = d.pop(0)
+# first part of the list is p2p_info
+separator_pos = d.index(separator)
+d = d[:separator_pos]
+
 
 keys = [k.replace("p2pstats.", "")[:-1] for k in d[::2]]
 vals = [json.loads(json.loads(v.replace("\\x", "_UNICX_"))) for v in d[1::2]] # SOOOO UGLY
