@@ -1,13 +1,23 @@
 import pandas as pd
 import json
 
-with open("data.txt", "r") as f:
+with open("../data.txt", "r") as f:
     d = f.readlines()
 d.pop(0)
 d.pop(0)
+separator = d.pop(0)
 
-keys = [k.replace("p2pstats.", "")[:-1] for k in d[::2]]
-vals = [json.loads(json.loads(v.replace("\\x", "_UNICX_"))) for v in d[1::2]] # SOOOO UGLY
+# first part of the list is p2p_info
+separator_pos = d.index(separator)
+
+p2p = d[:separator_pos]
+# second part is active nodes
+active_nodes = d[(separator_pos+1):]
+active_nodes = [a.split()[-1][1:-1] for a in active_nodes]
+
+
+keys = [k.replace("p2pstats.", "")[:-1] for k in p2p[::2]]
+vals = [json.loads(json.loads(v.replace("\\x", "_UNICX_"))) for v in p2p[1::2]] # SOOOO UGLY
 
 assert len(keys) == len(vals)
 
@@ -24,7 +34,8 @@ def get_degree(k):
 out["nodes"] = [{"id": k, "group": get_degree(k)} for k in keys]
 out["links"] = [{"source": k1, "target": k2, "value": 1} 
                 for k1, k2 in connections_set
-                if k1 in keys and k2 in keys]
+                if k1 in keys and k2 in keys
+                and k1 in active_nodes and k2 in active_nodes]
 
 with open("graph.json", "w") as f:
     json.dump(out, f)
