@@ -1,8 +1,20 @@
-Rudimentary visualization tool for golem network
+## Rudimentary visualization tool for golem network.
 
-run like this
-```
-./script.sh $USER $SERVER_ADDRESS
-```
-where these credentials are used to log in to the server keeping p2p stats.
+Used just to get a gist of what the network looks like, not production ready, done using duck tape, mostly.
 
+Shows nodes graph and nodes info:
+
+[[./screenshot.png]]
+
+### Running
+
+To run on new data, you have to have access to the internal golem network (bebum is where the monitor runs):
+```
+./script.sh $USER bebum
+```
+
+Otherwise, you can run on old (19.09.18) data by just:
+
+```
+python -m http.server
+```
