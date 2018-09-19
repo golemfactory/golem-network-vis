@@ -4,7 +4,7 @@ Used just to get a gist of what the network looks like, not production ready, do
 
 Shows nodes graph and nodes info:
 
-[[screenshot.png]]
+![Screenshot.png](screenshot.png)
 
 ### Running
 
